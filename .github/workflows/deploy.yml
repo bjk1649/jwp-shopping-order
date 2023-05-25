@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, ARM64, deploy]
     defaults:
       run:
         working-directory: ../..
