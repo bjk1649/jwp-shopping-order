@@ -7,17 +7,8 @@ on:
 
 jobs:
 
-  setup_runners:
-    runs-on: self-hosted
-    outputs:
-      runner_label: ${{ runner.labels.runner_label }}
-    steps:
-      - name: Set runner label
-        run: echo "::set-output name=runner_label::my_runner_label"
-
   common_job:
-    needs: setup_runners
-    runs-on: ${{ needs.setup_runners.outputs.runner_label }}
+    runs-on: self_hosted
     defaults:
       run:
         working-directory: ../..
