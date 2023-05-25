@@ -6,7 +6,6 @@ on:
       - deploy
 
 jobs:
-
   common_job:
     runs-on: self_hosted
     defaults:
@@ -18,6 +17,3 @@ jobs:
           echo $PWD
           chmod +x ./deploy.sh
           sudo ./deploy.sh
-
-
-
