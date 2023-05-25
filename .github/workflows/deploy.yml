@@ -6,8 +6,11 @@ on:
       - deploy
 
 jobs:
-  deploy:
-    runs-on: [self-hosted, linux, ARM64, deploy]
+  common_job:
+    strategy:
+      matrix:
+        runner: [${{ secrets.TORI_RUNNER }}, ${{ secrets.POI_RUNNER }}, ${{ secrets.JENA_RUNNER }}]
+    runs-on: ${{ matrix.runner }}
     defaults:
       run:
         working-directory: ../..
