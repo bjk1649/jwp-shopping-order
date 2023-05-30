@@ -38,3 +38,6 @@ out/
 
 ## sh
 *.sh
+
+## application property
+application-mysql.yml
