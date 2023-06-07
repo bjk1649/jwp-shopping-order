@@ -4,8 +4,8 @@ import cart.exception.InvalidPageException;
 
 public class Page {
 
-    public static final String DEFAULT_PAGE = "1";
-    public static final String DEFAULT_SIZE = "10";
+    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_SIZE = 10;
     public static final Page DEFAULT = new Page(DEFAULT_PAGE, DEFAULT_SIZE);
 
     private final int page;
@@ -15,18 +15,6 @@ public class Page {
         validate(page, size);
         this.page = page;
         this.size = size;
-    }
-
-    public Page(final String rawPage, final String rawSize) {
-        try {
-            final int page = Integer.parseInt(rawPage);
-            final int size = Integer.parseInt(rawSize);
-            validate(page, size);
-            this.page = page;
-            this.size = size;
-        } catch (NumberFormatException e) {
-            throw new InvalidPageException("page 와 size 는 숫자여야 합니다.");
-        }
     }
 
     private void validate(final int page, final int size) {
@@ -53,5 +41,4 @@ public class Page {
     public int getLimit() {
         return getOffset() + size;
     }
-
 }
