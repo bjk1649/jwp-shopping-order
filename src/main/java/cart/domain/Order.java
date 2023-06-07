@@ -1,5 +1,6 @@
 package cart.domain;
 
+import cart.exception.IllegalMemberException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -47,6 +48,13 @@ public class Order {
         this.usedPoint = usedPoint;
         this.savedPoint = savedPoint;
         this.orderedAt = orderedAt;
+    }
+
+    public void checkOwner(final Member member) {
+        if(this.member.equals(member)) {
+            return;
+        }
+        throw new IllegalMemberException("다른 사용자의 주문 정보를 조회할 수 없습니다");
     }
 
     public Long getId() {

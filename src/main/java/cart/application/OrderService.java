@@ -12,13 +12,13 @@ import cart.dto.OrderDetailResponse;
 import cart.entity.MemberEntity;
 import cart.repository.CartItemRepository;
 import cart.repository.OrderRepository;
+import cart.ui.paging.Page;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 public class OrderService {
 
     private final MemberDao memberDao;
@@ -38,8 +38,7 @@ public class OrderService {
     @Transactional
     public Long saveOrder(final Member member, final OrderCreateRequest orderCreateRequest) {
         final List<Long> cartItemIds = orderCreateRequest.getCartItemIds();
-        final List<CartItem> cartItemsToOrder = cartItemRepository.findByIds(cartItemIds);
-        validateOwner(member, cartItemsToOrder);
+        final List<CartItem> cartItemsToOrder = cartItemRepository.findMembersItemByCartIds(member, cartItemIds);
 
         final Point usingPoint = new Point(orderCreateRequest.getPoint());
         final CreditCard creditCard = new CreditCard(orderCreateRequest.getCardNumber(), orderCreateRequest.getCvc());
@@ -62,10 +61,6 @@ public class OrderService {
         return orderId;
     }
 
-    private void validateOwner(final Member member, final List<CartItem> cartItemsToOrder) {
-        cartItemsToOrder.forEach(cartItem -> cartItem.validateOwner(member));
-    }
-
     private int calculateTotalPrice(final List<CartItem> cartItemsToOrder) {
         return cartItemsToOrder.stream()
                 .mapToInt(e -> e.getProduct().getPrice() * e.getQuantity())
@@ -82,13 +77,16 @@ public class OrderService {
                 .collect(Collectors.toUnmodifiableList());
     }
 
+    @Transactional(readOnly = true)
     public OrderDetailResponse findOrderDetailById(final Member member, final Long id) {
-        final Order order = orderRepository.findById(id, member);
+        final Order order = orderRepository.findById(id);
+        order.checkOwner(member);
         return OrderDetailResponse.from(order);
     }
 
-    public List<OrderDetailResponse> findOrdersByMember(final Member member) {
-        final List<Order> orders = orderRepository.findByMember(member);
+    @Transactional(readOnly = true)
+    public List<OrderDetailResponse> findOrdersByMember(final Member member, final Page page) {
+        final List<Order> orders = orderRepository.findByMember(member, page);
 
         return orders.stream()
                 .map(OrderDetailResponse::from)
