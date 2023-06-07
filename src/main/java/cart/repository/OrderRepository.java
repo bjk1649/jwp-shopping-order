@@ -11,5 +11,5 @@ public interface OrderRepository {
 
     Order findById(final Long id);
 
-    List<Order> findByMember(Member member, Page page);
+    List<Order> findByMember(final Member member, final Page page);
 }

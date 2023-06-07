@@ -53,7 +53,7 @@ public class OrderRepositoryWithDao implements OrderRepository {
     }
 
     public List<Order> findByMember(final Member member, final Page page) {
-        final List<OrderEntity> orderEntities = orderDao.findByMemberIdWithPaging(
+        final List<OrderEntity> orderEntities = orderDao.findByMemberId(
                 member.getId(),
                 page
         );
