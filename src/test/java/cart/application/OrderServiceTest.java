@@ -100,6 +100,7 @@ class OrderServiceTest {
                     3000,
                     LocalDateTime.of(2023, 6, 6, 4, 5, 0)
             );
+            given(orderRepository.findById(1L)).willReturn(order);
 
             //when
             final OrderDetailResponse response = orderService.findOrderDetailById(member, 1L);
