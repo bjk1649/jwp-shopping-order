@@ -7,11 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class PageController {
+public class AdminPageController {
+
     private final ProductService productService;
     private final MemberDao memberDao;
 
-    public PageController(ProductService productService, MemberDao memberDao) {
+    public AdminPageController(ProductService productService, MemberDao memberDao) {
         this.productService = productService;
         this.memberDao = memberDao;
     }

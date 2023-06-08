@@ -1,32 +1,24 @@
 package cart.ui.paging;
 
 import cart.exception.InvalidPageException;
+import io.swagger.v3.oas.annotations.media.Schema;
 
+@Schema(description = "페이징 정보")
 public class Page {
 
-    public static final String DEFAULT_PAGE = "1";
-    public static final String DEFAULT_SIZE = "10";
+    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_SIZE = 10;
     public static final Page DEFAULT = new Page(DEFAULT_PAGE, DEFAULT_SIZE);
 
+    @Schema(description = "조회할 페이지", defaultValue = "1", example = "1")
     private final int page;
+    @Schema(description = "조회할 페이지의 사이즈", defaultValue = "10", example = "10")
     private final int size;
 
     public Page(final int page, final int size) {
         validate(page, size);
         this.page = page;
         this.size = size;
-    }
-
-    public Page(final String rawPage, final String rawSize) {
-        try {
-            final int page = Integer.parseInt(rawPage);
-            final int size = Integer.parseInt(rawSize);
-            validate(page, size);
-            this.page = page;
-            this.size = size;
-        } catch (NumberFormatException e) {
-            throw new InvalidPageException("page 와 size 는 숫자여야 합니다.");
-        }
     }
 
     private void validate(final int page, final int size) {
@@ -38,14 +30,6 @@ public class Page {
         }
     }
 
-    public int getPage() {
-        return page;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
     public int getOffset() {
         return (page - 1) * size;
     }
@@ -53,5 +37,4 @@ public class Page {
     public int getLimit() {
         return getOffset() + size;
     }
-
 }

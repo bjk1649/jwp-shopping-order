@@ -3,7 +3,7 @@ package cart.application;
 import cart.domain.Product;
 import cart.dto.ProductRequest;
 import cart.dto.ProductResponse;
-import cart.repository.ProductRepository;
+import cart.domain.ProductRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;

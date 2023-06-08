@@ -38,23 +38,19 @@ public class OrderDao {
         }
     }
 
-    public List<OrderEntity> findByMemberId(final Long memberId) {
-        final String sql = "SELECT * FROM shopping_order WHERE member_id = ?";
-        try {
-            return jdbcTemplate.getJdbcTemplate().query(sql, orderEntityMapper(), memberId);
-        } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
-        }
-    }
-
-    public List<OrderEntity> findByMemberIdWithPaging(final Long memberId, final Page page) {
-        final String sql = "SELECT * FROM shopping_order WHERE member_id = ? "
+    public List<OrderEntity> findByMemberId(final Long memberId, final Page page) {
+        final String sql = "SELECT * FROM shopping_order "
+                + "WHERE member_id = ? "
                 + "ORDER BY ordered_at "
                 + "LIMIT ?, ?";
         try {
-            return jdbcTemplate.getJdbcTemplate().query(sql, orderEntityMapper(), memberId,
+            return jdbcTemplate.getJdbcTemplate().query(
+                    sql,
+                    orderEntityMapper(),
+                    memberId,
                     page.getOffset(),
-                    page.getLimit());
+                    page.getLimit()
+            );
         } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }

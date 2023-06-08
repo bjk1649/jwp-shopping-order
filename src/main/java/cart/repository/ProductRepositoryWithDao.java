@@ -2,6 +2,7 @@ package cart.repository;
 
 import cart.dao.ProductDao;
 import cart.domain.Product;
+import cart.domain.ProductRepository;
 import cart.entity.ProductEntity;
 import cart.exception.ResourceNotFoundException;
 import java.util.List;

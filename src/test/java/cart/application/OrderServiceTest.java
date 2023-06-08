@@ -18,8 +18,8 @@ import cart.dto.OrderCreateRequest;
 import cart.dto.OrderDetailResponse;
 import cart.entity.MemberEntity;
 import cart.exception.IllegalMemberException;
-import cart.repository.CartItemRepository;
-import cart.repository.OrderRepository;
+import cart.domain.CartItemRepository;
+import cart.domain.OrderRepository;
 import cart.ui.paging.Page;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -98,7 +98,7 @@ class OrderServiceTest {
                     orderItems,
                     300,
                     3000,
-                    LocalDateTime.of(2023, 06, 06, 04, 05, 00)
+                    LocalDateTime.of(2023, 6, 6, 4, 5, 0)
             );
             given(orderRepository.findById(1L)).willReturn(order);
 
@@ -130,7 +130,7 @@ class OrderServiceTest {
                     orderItems,
                     300,
                     3000,
-                    LocalDateTime.of(2023, 06, 06, 04, 05, 00)
+                    LocalDateTime.of(2023, 6, 6, 4, 5, 0)
             );
             given(orderRepository.findById(1L)).willReturn(order);
 

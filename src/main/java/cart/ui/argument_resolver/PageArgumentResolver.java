@@ -1,11 +1,10 @@
 package cart.ui.argument_resolver;
 
+import cart.exception.InvalidPageException;
 import cart.ui.paging.Page;
 import cart.ui.paging.Pageable;
 import java.util.Objects;
 import org.springframework.core.MethodParameter;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -26,19 +25,15 @@ public class PageArgumentResolver implements HandlerMethodArgumentResolver {
         try {
             String page = webRequest.getParameter("page");
             if (Objects.isNull(page) || Integer.parseInt(page) <= 0) {
-                page = Page.DEFAULT_PAGE;
+                page = String.valueOf(Page.DEFAULT_PAGE);
             }
             String size = webRequest.getParameter("size");
             if (Objects.isNull(size) || Integer.parseInt(size) <= 0) {
-                size = Page.DEFAULT_SIZE;
+                size = String.valueOf(Page.DEFAULT_SIZE);
             }
             return new Page(Integer.parseInt(page), Integer.parseInt(size));
-
-        } catch (NullPointerException | NumberFormatException e) {
-            throw new MethodArgumentNotValidException(
-                    parameter,
-                    new BeanPropertyBindingResult(parameter, "parameter : page")
-            );
+        } catch (NumberFormatException e) {
+            throw new InvalidPageException("page와 size는 양의 정수로 입력되어야합니다.");
         }
     }
 }
