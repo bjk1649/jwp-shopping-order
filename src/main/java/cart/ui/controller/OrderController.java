@@ -48,7 +48,11 @@ public class OrderController {
     @Operation(summary = "멤버별 주문 전체 조회")
     public ResponseEntity<List<OrderDetailResponse>> findOrdersWithPaging(
             Member member,
-            @Pageable Page page
+            @Parameter(
+                    name = "페이징 정보",
+                    description = "페이지와 사이즈(optional)",
+                    example = "page=1&size=10 "
+            ) @Pageable Page page
     ) {
         final List<OrderDetailResponse> response = orderService.findOrdersByMember(member, page);
         return ResponseEntity.ok(response);
