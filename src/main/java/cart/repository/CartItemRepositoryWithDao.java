@@ -2,6 +2,7 @@ package cart.repository;
 
 import cart.dao.CartItemDao;
 import cart.domain.CartItem;
+import cart.domain.CartItemRepository;
 import cart.domain.Member;
 import cart.domain.Product;
 import cart.entity.CartItemEntity;

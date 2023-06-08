@@ -1,7 +1,5 @@
-package cart.repository;
+package cart.domain;
 
-import cart.domain.CartItem;
-import cart.domain.Member;
 import java.util.List;
 
 public interface CartItemRepository {

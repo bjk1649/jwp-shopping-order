@@ -6,6 +6,7 @@ import cart.dao.OrderItemDao;
 import cart.domain.Member;
 import cart.domain.Order;
 import cart.domain.OrderItem;
+import cart.domain.OrderRepository;
 import cart.domain.Product;
 import cart.entity.MemberEntity;
 import cart.entity.OrderEntity;

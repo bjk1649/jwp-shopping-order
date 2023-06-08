@@ -1,7 +1,5 @@
-package cart.repository;
+package cart.domain;
 
-import cart.domain.Member;
-import cart.domain.Order;
 import cart.ui.paging.Page;
 import java.util.List;
 
